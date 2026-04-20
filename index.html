@@ -7,76 +7,169 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
-    body { background: #050505; font-family: 'Inter', system-ui, sans-serif; }
-    .gold-gradient { background: linear-gradient(90deg, #facc15, #fbbf24, #e5b80b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    
-    .hero-bg {
-      background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), 
-                        url('https://your-image-link.jpg'); /* ← 替换成你的图片链接 */
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
+    body { background: #0a0a0a; font-family: 'Inter', system-ui, sans-serif; }
+    .gold-gradient { background: linear-gradient(90deg, #fcd34d, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-bg { background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)), url('https://picsum.photos/id/1015/1920/1080'); background-size: cover; background-position: center; }
   </style>
 </head>
 <body class="text-white">
 
-  <!-- Hero Section - 使用你的原图风格 -->
+  <!-- Hero -->
   <section class="hero-bg min-h-screen flex items-center relative">
     <div class="max-w-6xl mx-auto text-center px-6 pt-20 relative z-10">
-      <h1 class="text-7xl md:text-[5.5rem] font-bold gold-gradient tracking-widest mb-6 drop-shadow-2xl">HORMUZ</h1>
-      <p class="text-4xl font-semibold mb-10 text-white/90">The Strait of Power</p>
+      <h1 class="text-7xl md:text-8xl font-bold gold-gradient tracking-widest mb-4">HORMUZ</h1>
+      <p class="text-4xl font-semibold mb-8">The Strait of Power</p>
 
-      <div class="inline-block bg-red-600/90 backdrop-blur-md text-white px-10 py-3.5 rounded-full text-xl font-bold mb-12 shadow-xl">
+      <div class="inline-block bg-red-600 text-white px-10 py-3 rounded-full text-xl font-bold mb-10">
         🚨 PRESALE IS OFFICIALLY LIVE 🔥
       </div>
 
       <!-- Countdown -->
       <div class="mb-12">
-        <p class="text-yellow-400 text-xl mb-4 tracking-widest">PRESALE ENDS IN</p>
+        <p class="text-yellow-400 text-xl mb-4">Presale Ends In</p>
         <div id="countdown" class="flex justify-center gap-8 text-5xl md:text-6xl font-bold font-mono"></div>
       </div>
 
-      <!-- Progress -->
+      <!-- Progress Bar -->
       <div class="max-w-xl mx-auto mb-12">
-        <div class="flex justify-between text-sm mb-3">
-          <span class="font-medium">Raised: <span id="raised" class="text-yellow-400">1,428 SOL</span></span>
-          <span class="font-medium">2,000 SOL Hard Cap</span>
+        <div class="flex justify-between text-sm mb-2 font-medium">
+          <span>Raised: <span id="raised" class="text-yellow-400">1,285</span> SOL</span>
+          <span>2,000 SOL Hard Cap</span>
         </div>
-        <div class="h-5 bg-gray-900/80 rounded-full overflow-hidden border border-yellow-500/30">
-          <div id="progressBar" class="h-full bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-500 transition-all" style="width: 71.4%"></div>
+        <div class="h-5 bg-gray-800 rounded-full overflow-hidden">
+          <div id="progressBar" class="h-full bg-gradient-to-r from-yellow-400 to-amber-500 transition-all duration-500" style="width: 64.25%"></div>
         </div>
+        <p class="text-center mt-2 text-sm text-gray-400">64.25% Funded</p>
       </div>
 
-      <button onclick="alert('Phantom / Solflare wallet connection coming soon...')" 
-              class="bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-amber-500 hover:to-yellow-400 text-black font-bold text-2xl px-16 py-7 rounded-3xl transition-all hover:scale-105 shadow-2xl">
-        Connect Wallet to Buy
+      <button onclick="alert('Connect your Phantom/Solflare wallet to buy')" 
+              class="bg-gradient-to-r from-yellow-400 to-amber-600 text-black font-bold text-2xl px-16 py-7 rounded-3xl hover:scale-105 transition-all">
+        Connect Wallet & Buy Now
       </button>
 
-      <p class="mt-10 text-xl text-white/80">1 SOL = <span class="font-bold text-yellow-300">150,000 $HORMUZ</span></p>
+      <p class="mt-8 text-xl">1 SOL = <span class="text-yellow-400 font-bold">150,000 $HORMUZ</span></p>
     </div>
   </section>
 
-  <!-- 其他区块（Tokenomics, Roadmap 等）可继续使用之前版本 -->
+  <!-- Stats -->
+  <section class="py-16 bg-black">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6 text-center">
+      <div>
+        <h3 class="text-6xl font-bold text-yellow-400">100M</h3>
+        <p class="text-gray-400 text-xl">Prize Pool</p>
+      </div>
+      <div>
+        <h3 class="text-6xl font-bold text-yellow-400">March 23rd</h3>
+        <p class="text-gray-400 text-xl">12:00 PM UTC</p>
+      </div>
+      <div>
+        <h3 class="text-6xl font-bold text-yellow-400">50K $OWAR</h3>
+        <p class="text-gray-400 text-xl">First 1,111 Addresses</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tokenomics -->
+  <section class="py-20 bg-black/95">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-5xl font-bold gold-gradient text-center mb-16">Tokenomics</h2>
+      <div class="grid md:grid-cols-2 gap-12">
+        <div class="space-y-8">
+          <div class="flex justify-between border-b border-gray-700 pb-4">
+            <span>Total Supply</span>
+            <span class="text-yellow-400 font-bold">1,000,000,000 $HORMUZ</span>
+          </div>
+          <div class="flex justify-between border-b border-gray-700 pb-4">
+            <span>Presale</span>
+            <span class="text-yellow-400 font-bold">40%</span>
+          </div>
+          <div class="flex justify-between border-b border-gray-700 pb-4">
+            <span>Liquidity</span>
+            <span class="text-yellow-400 font-bold">30%</span>
+          </div>
+          <div class="flex justify-between border-b border-gray-700 pb-4">
+            <span>Marketing & Rewards</span>
+            <span class="text-yellow-400 font-bold">20%</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Team (Locked 12 Months)</span>
+            <span class="text-yellow-400 font-bold">10%</span>
+          </div>
+        </div>
+        <div class="bg-gray-900 p-8 rounded-3xl">
+          <h3 class="text-2xl mb-6 text-center">100M Prize Pool</h3>
+          <ul class="space-y-4">
+            <li class="flex justify-between"><span>Early Supporters</span><span class="text-yellow-400">60%</span></li>
+            <li class="flex justify-between"><span>Top Holders</span><span class="text-yellow-400">25%</span></li>
+            <li class="flex justify-between"><span>Community Airdrop</span><span class="text-yellow-400">15%</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Roadmap -->
+  <section class="py-20 bg-black">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-5xl font-bold gold-gradient text-center mb-16">Roadmap</h2>
+      <div class="space-y-12 max-w-3xl mx-auto">
+        <div class="flex gap-10">
+          <div class="w-32 text-yellow-400 font-bold text-right">Q1 2026</div>
+          <div>
+            <h3 class="text-2xl mb-2">Launch Phase</h3>
+            <p class="text-gray-400">Presale • Fair Launch on Raydium • Liquidity Pool</p>
+          </div>
+        </div>
+        <div class="flex gap-10">
+          <div class="w-32 text-yellow-400 font-bold text-right">Q2 2026</div>
+          <div>
+            <h3 class="text-2xl mb-2">Growth & Rewards</h3>
+            <p class="text-gray-400">100M Prize Pool Distribution • CEX Listings • Marketing Push</p>
+          </div>
+        </div>
+        <div class="flex gap-10">
+          <div class="w-32 text-yellow-400 font-bold text-right">Q3 2026</div>
+          <div>
+            <h3 class="text-2xl mb-2">Expansion</h3>
+            <p class="text-gray-400">Staking • NFT Collection • Global Community Events</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-16 bg-black border-t border-yellow-900/30 text-center">
+    <a href="#" onclick="alert('Whitepaper coming soon...')" 
+       class="inline-flex items-center gap-3 border border-yellow-400 hover:bg-yellow-400 hover:text-black px-10 py-5 rounded-2xl text-xl transition-all">
+      <i class="fas fa-file-pdf"></i> Download Whitepaper
+    </a>
+    <div class="mt-12 flex justify-center gap-10 text-3xl">
+      <a href="#" class="hover:text-yellow-400"><i class="fab fa-x-twitter"></i></a>
+      <a href="#" class="hover:text-yellow-400"><i class="fab fa-telegram"></i></a>
+      <a href="#" class="hover:text-yellow-400"><i class="fab fa-discord"></i></a>
+    </div>
+    <p class="mt-12 text-gray-500">© 2026 $HORMUZ • Built on Solana</p>
+  </footer>
 
   <script>
-    // 真实倒计时
+    // Real Countdown
     function startCountdown() {
-      const end = new Date("2026-03-23T12:00:00Z").getTime();
+      const endDate = new Date("2026-03-23T12:00:00Z").getTime();
       setInterval(() => {
         const now = new Date().getTime();
-        const diff = end - now;
+        const distance = endDate - now;
 
-        const days = Math.floor(diff / (1000*60*60*24));
-        const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-        const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
-        const seconds = Math.floor((diff % (1000*60)) / 1000);
+        const days = Math.floor(distance / (1000*60*60*24));
+        const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+        const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+        const seconds = Math.floor((distance % (1000*60)) / 1000);
 
         document.getElementById("countdown").innerHTML = `
-          <div class="text-center"><div class="text-6xl">${days}</div><div class="text-xs tracking-widest">DAYS</div></div>
-          <div class="text-center"><div class="text-6xl">${hours}</div><div class="text-xs tracking-widest">HOURS</div></div>
-          <div class="text-center"><div class="text-6xl">${minutes}</div><div class="text-xs tracking-widest">MIN</div></div>
-          <div class="text-center"><div class="text-6xl">${seconds}</div><div class="text-xs tracking-widest">SEC</div></div>
+          <div><span class="block text-6xl">${days}</span><span class="text-sm">DAYS</span></div>
+          <div><span class="block text-6xl">${hours}</span><span class="text-sm">HOURS</span></div>
+          <div><span class="block text-6xl">${minutes}</span><span class="text-sm">MIN</span></div>
+          <div><span class="block text-6xl">${seconds}</span><span class="text-sm">SEC</span></div>
         `;
       }, 1000);
     }
