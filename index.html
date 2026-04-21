@@ -26,6 +26,15 @@
     .nav-link { transition: all 0.3s; }
     .nav-link:hover { color: #fbbf24; transform: translateY(-1px); }
 
+    .amount-btn {
+      transition: all 0.2s ease;
+    }
+    .amount-btn.active {
+      background-color: #fbbf24 !important;
+      color: black !important;
+      font-weight: 700;
+    }
+
     .mobile-menu {
       transform: translateY(-100%);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -95,7 +104,31 @@
         <p class="text-yellow-400 text-xl mb-4">Presale Ends In</p>
         <div id="countdown" class="flex justify-center gap-8 text-5xl md:text-6xl font-bold font-mono"></div>
       </div>
-      <div class="max-w-xl mx-auto mb-12">
+
+      <!-- 金额输入 + 快捷按钮 -->
+      <div class="max-w-md mx-auto mb-8">
+        <div class="flex gap-2 mb-4 justify-center flex-wrap">
+          <button onclick="quickAmount(0.5)" class="amount-btn px-5 py-2 bg-white/10 hover:bg-yellow-400 hover:text-black rounded-xl text-sm">0.5 SOL</button>
+          <button onclick="quickAmount(1)" class="amount-btn px-5 py-2 bg-white/10 hover:bg-yellow-400 hover:text-black rounded-xl text-sm active">1 SOL</button>
+          <button onclick="quickAmount(5)" class="amount-btn px-5 py-2 bg-white/10 hover:bg-yellow-400 hover:text-black rounded-xl text-sm">5 SOL</button>
+          <button onclick="quickAmount(10)" class="amount-btn px-5 py-2 bg-white/10 hover:bg-yellow-400 hover:text-black rounded-xl text-sm">10 SOL</button>
+        </div>
+
+        <div class="flex items-center gap-4 bg-black/60 border border-yellow-400/40 rounded-2xl p-4">
+          <input type="number" id="solAmount" value="1" step="0.1" min="0.1"
+                 class="bg-transparent text-white text-4xl font-bold w-28 text-center focus:outline-none">
+          <span class="text-yellow-400 font-semibold text-xl">SOL</span>
+        </div>
+        <p id="hormuzAmount" class="text-center mt-4 text-lg text-yellow-400 font-medium">
+          You will receive <span class="font-bold">150,000</span> $HORMUZ
+        </p>
+      </div>
+
+      <button onclick="buyWithSolana()" class="buy-btn bg-gradient-to-r from-yellow-400 to-amber-600 text-black font-bold text-2xl px-16 py-7 rounded-3xl w-full max-w-md mx-auto block">
+        Connect Wallet & Buy Now
+      </button>
+
+      <div class="max-w-xl mx-auto mt-10">
         <div class="flex justify-between text-sm mb-2 font-medium">
           <span>Raised: <span id="raised" class="text-yellow-400 font-bold">1,428.65</span> SOL</span>
           <span>Hard Cap: <span id="hardCapDisplay" class="font-bold">500,000</span> SOL</span>
@@ -105,10 +138,6 @@
         </div>
         <p class="text-center mt-2 text-sm text-gray-400" id="percentText">0.29% Funded</p>
       </div>
-      <button onclick="buyWithSolana()" class="buy-btn bg-gradient-to-r from-yellow-400 to-amber-600 text-black font-bold text-2xl px-16 py-7 rounded-3xl">
-        Connect Wallet & Buy Now
-      </button>
-      <p class="mt-8 text-xl">1 SOL = <span class="text-yellow-400 font-bold">150,000 $HORMUZ</span></p>
     </div>
   </section>
 
@@ -197,7 +226,7 @@
     </div>
   </section>
 
-  <!-- Footer with Social -->
+  <!-- Footer -->
   <footer class="py-16 bg-black border-t border-yellow-900/30 text-center">
     <div class="flex justify-center gap-8 text-4xl mb-8">
       <a href="https://x.com/hmzsolanatoken" target="_blank" class="hover:text-yellow-400"><i class="fab fa-x-twitter"></i></a>
@@ -208,7 +237,7 @@
   </footer>
 
   <script>
-    // 移动端菜单
+    // ==================== 移动端菜单 ====================
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     const closeMenu = document.getElementById('closeMenu');
@@ -220,25 +249,70 @@
       mobileMenu.classList.remove('active');
     }
 
+    // ==================== 转账功能 ====================
+    const RECEIVER_WALLET = "wvYTerRifF8KmZwLUtAUbgtzp39aYacQe959JBHthjT";
     let publicKey = null;
-    let totalSOL = 1428.65;
-    let hardCap = 500000;
 
     async function connectWallet() {
       try {
         if (!window.solana) return alert("Please install Phantom Wallet!");
         const resp = await window.solana.connect();
         publicKey = resp.publicKey;
-        document.getElementById('btnText').textContent = '✅ Connected';
+        document.getElementById('btnText').innerHTML = '✅ Connected';
       } catch (err) {
         alert("Connection failed");
       }
     }
 
+    function quickAmount(amount) {
+      document.getElementById('solAmount').value = amount;
+      updateHormuzAmount();
+      document.querySelectorAll('.amount-btn').forEach(btn => btn.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+    }
+
+    function updateHormuzAmount() {
+      const amount = parseFloat(document.getElementById('solAmount').value) || 0;
+      document.getElementById('hormuzAmount').innerHTML = 
+        `You will receive <span class="font-bold">${(amount * 150000).toLocaleString()}</span> $HORMUZ`;
+    }
+
     async function buyWithSolana() {
       if (!publicKey) return alert("Please connect your Phantom wallet first!");
-      alert("Transaction simulation successful!");
+      const amount = parseFloat(document.getElementById('solAmount').value) || 1;
+      if (amount < 0.1) return alert("Minimum 0.1 SOL");
+
+      const hormuz = (amount * 150000).toLocaleString();
+      if (!confirm(`Confirm sending ${amount} SOL?\nYou will receive ${hormuz} $HORMUZ`)) return;
+
+      try {
+        const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl("mainnet-beta"), "confirmed");
+        const transaction = new solanaWeb3.Transaction().add(
+          solanaWeb3.SystemProgram.transfer({
+            fromPubkey: publicKey,
+            toPubkey: new solanaWeb3.PublicKey(RECEIVER_WALLET),
+            lamports: amount * solanaWeb3.LAMPORTS_PER_SOL,
+          })
+        );
+
+        const { blockhash } = await connection.getLatestBlockhash();
+        transaction.recentBlockhash = blockhash;
+        transaction.feePayer = publicKey;
+
+        const signed = await window.solana.signTransaction(transaction);
+        const signature = await connection.sendRawTransaction(signed.serialize());
+
+        alert(`🎉 Transaction Sent!\n\nAmount: ${amount} SOL\nTx: ${signature}`);
+      } catch (error) {
+        alert("Transaction failed: " + error.message);
+      }
     }
+
+    document.getElementById('solAmount').addEventListener('input', updateHormuzAmount);
+
+    // ==================== 其他功能 ====================
+    let totalSOL = 1428.65;
+    let hardCap = 500000;
 
     function startCountdown() {
       const endDate = new Date("2026-05-01T12:00:00Z").getTime();
