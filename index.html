@@ -311,11 +311,11 @@
     document.getElementById('solAmount').addEventListener('input', updateHormuzAmount);
 
     // ==================== 其他功能 ====================
-    let totalSOL = 5068.65;
+    let totalSOL = 15068.65;
     let hardCap = 100000;
 
     function startCountdown() {
-      const endDate = new Date("2026-05-01T12:00:00Z").getTime();
+      const endDate = new Date("2026-05-15T12:00:00Z").getTime();
       setInterval(() => {
         const distance = endDate - new Date().getTime();
         const days = Math.floor(distance / (1000*60*60*24));
